@@ -36,7 +36,7 @@ La police utilisée pour les cartes Lateb est [Streetwise Buddy](http://www.dafo
 License
 -------
 
-ISC, voir le fichier `LICENSE` pour les détails.
+MIT, voir le fichier `LICENSE` pour les détails.
 
 Contact
 -------
