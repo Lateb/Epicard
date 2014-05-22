@@ -46,6 +46,8 @@ La police utilisée pour les cartes Lateb est [Streetwise Buddy](http://www.dafo
 
 Si le code barres est inutile pour vous, il devrait être simple de l’enlever et de mettre autre chose à la place.
 
+Un exemple est fourni sur la branche `lateb_example`, ça peut être utile.
+
 License
 -------
 
