@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Auteur : Lucas Stil
 # Long vît à Lateb
@@ -12,11 +13,13 @@ from PIL import Image, ImageDraw, ImageFont
 
 def create_empty_config():
     config = open('./config.cfg', "w")
-    config.write("[Server]\nhost = localhost\nport = 3306\ndatabase = membres\n\n[Login]\nuser = AzureDiamond \npassword = hunter2\n")
+    config.write("[Server]\nhost = localhost\nport = 3306\n\
+            database = membres\n\n[Login]\n\
+            user = AzureDiamond\npassword = hunter2\n")
 
 def picture_gen(row):
     photo_name = "./photos/" + row['EMAIL'] + '.jpg'
-    if not (os.path.isfile(photo_name)):
+    if not os.path.isfile(photo_name):
         return
     code = barcode.codex.Code39(row['CARD'],
                                 add_checksum=False,
@@ -61,15 +64,17 @@ except:
     print("Fichier de configuration créé ! Merci d'aller l'éditer.")
     exit(0)
 
-mysql_addr = "mysql+oursql://" + LOGIN + ":" + PASS + "@" + HOST + ":" + PORT + "/" + DATABASE
-engine = sqlalchemy.create_engine(mysql_addr,
+MYSQL_ADDR = "mysql+oursql://" + LOGIN + ":" + PASS
+MYSQL_ADDR += "@" + HOST + ":" + PORT + "/" + DATABASE
+ENGINE = sqlalchemy.create_engine(MYSQL_ADDR,
                                   convert_unicode=True)
 try:
-    connection = engine.connect()
+    CONNEXION = ENGINE.connect()
 except:
     print("Problème de connexion à la base de données.")
     exit(1)
-result = connection.execute("select NAME, FIRSTNAME, LASTNAME, SEARCHKEY, CARD, EMAIL from CUSTOMERS WHERE EMAIL IS NOT NULL")
-for row in result:
+RESULT = CONNEXION.execute("select NAME, FIRSTNAME, LASTNAME, SEARCHKEY, \
+        CARD, EMAIL from CUSTOMERS WHERE EMAIL IS NOT NULL")
+for row in RESULT:
     picture_gen(row)
-connection.close()
+CONNEXION.close()
